@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+
+        .container>div {
+            border: 1px solid;
+            border-radius: 6px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container"></div>
+    <script>
+        let url = "https://habitual-fearless-tea.glitch.me/students";
+        async function getData() {
+            let response = await fetch(url);
+            let students = await response.json();
+            displayDetails(students);
+        }
+        function displayDetails(students) {
+            let container = document.getElementById("container");
+            container.innerHTML = '';
+
+            students.forEach(obj => {
+                let { name, location } = obj;
+                let item = document.createElement("div");
+                item.innerHTML = `
+                    <p><b>Name : </b>${name}</p>
+                    <p><b>Location : </b>${location} </p>
+                `
+                container.appendChild(item);
+            })
+
+        }
+
+        getData();
+    </script>
+</body>
+
+</html>
